@@ -95,10 +95,10 @@ firebase.auth().onAuthStateChanged((user) => {
 
     if (user) {
 
-        const userText = document.getElementById("username");
+        const usernameElement = document.getElementById("username");
 
-        if (userText !== null) {
-            userText.innerText = user.email;
+        if (usernameElement !== null) {
+            usernameElement.innerText = user.displayName;
         }
 
     }
