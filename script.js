@@ -17,6 +17,31 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 
+function signUp() {
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(email === "" || password === "") {
+        alert("Please enter Email and Password");
+        return;
+    }
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+
+        alert("Account Created Successfully!");
+        window.location.href = "dashboard.html";
+
+    })
+    .catch((error) => {
+
+        alert(error.message);
+
+    });
+}
+
+
 
 
 
@@ -54,56 +79,12 @@ function logout() {
         console.log(error);
     });
 }
-firebase.auth().onAuthStateChanged(function(user) {
 
-    if (!user) {
-        window.location.href = "index.html";
-    }
 
-});
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        document.getElementById("username").innerText =
-            "Welcome " + user.displayName;
-    }
-});
-firebase.auth().getRedirectResult()
-.then((result) => {
 
-    if (result.user) {
-        window.location.href = "dashboard.html";
-    }
 
-})
-.catch((error) => {
-    console.log(error);
-});
-firebase.auth().onAuthStateChanged((user) => {
+    
 
-    if (user) {
-
-        const userText = document.getElementById("username");
-
-        if (userText) {
-            userText.innerText = user.email;
-        }
-
-    }
-
-});
-firebase.auth().onAuthStateChanged((user) => {
-
-    if (user) {
-
-        const usernameElement = document.getElementById("username");
-
-        if (usernameElement !== null) {
-            usernameElement.innerText = user.displayName;
-        }
-
-    }
-
-});
 document.addEventListener("DOMContentLoaded", function() {
 
 firebase.auth().onAuthStateChanged((user) => {
